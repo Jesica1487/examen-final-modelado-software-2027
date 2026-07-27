@@ -29,6 +29,7 @@ Correccion: [Como deberia ser]
 ### CU-10: Registrar Usuario
 
 **Actor Principal:** Base de Datos, Visitante
+
 ERROR 1_
 UBICACION: ACTOR PRINCIPAL
 DESCRIPCION: LA base de datos no puede ser un actor
@@ -40,6 +41,7 @@ La base de datos permite que un visitante se registre en la plataforma creando u
 **Precondiciones:**
 - El visitante debe tener una invitacion de otro usuario registrado
 - El visitante debe haber visitado al menos 5 articulos en los ultimos 30 dias
+
 ERROR 2_
 UBICACION: PRECONDICION
 DESCRIPCION: EL VISITANTE DEBE TENER UNA INVITACION.
@@ -53,6 +55,7 @@ CORRCCION: es un requisito innecesario, no debe ser un condicional. Las condicio
 5. El sistema guarda la informacion inmediatamente
 6. El sistema muestra mensaje "Cuenta creada con exito"
 7. Fin del caso de uso
+
 ERROR 3_   
 UBICACION: FLUJO PRINCIPAL
 DESCRIPCION: el sistema no pide confirmacion de datos antes de finalizar
@@ -60,6 +63,7 @@ CORRECCION: debemos crear un paso posterior al numero 4, con este confirmar ante
 
 **Flujos Alternativos:**
 - Ninguno
+
 ERROR 4_
 UBICACION: FLUJOS ALTERNATIVOS
 DESCRIPCION: siempre debe haber un flujo alternativo, por ejemplo " el usuario cancela la eliminacion de datos"
