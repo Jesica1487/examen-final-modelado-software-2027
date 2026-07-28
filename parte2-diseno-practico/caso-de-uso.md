@@ -5,13 +5,14 @@ Requisito: "Agregar funcionalidad de 'Buscar articulos por titulo o palabra clav
 
 
 **ID: CU-01 *  
+
 **Nombre: BUSQUEDA DE ARTICULOS**
 
 **Actor Principal: VISITANTE**  
-**Actores Secundarios: BASE DE DATOS**
+
 
 ## Descripcion
- Los visitantes y usuarios pueden buscar articulos ingresando terminos en una barra de busqueda. El sistema devuelve los articulos cuyo titulo o contenido coincida parcial o totalmente con el termino buscado, ordenados por relevancia o fecha de publicacion
+ Los visitantes y usuarios pueden buscar articulos ingresando terminos en una barra de busqueda. El sistema devuelve los articulos cuyo titulo o contenido coincida parcial o totalmente con el termino buscado, ordenados por relevancia o fecha de publicacion. Queda registrado en el historial del usuario la busqueda.
 
 ## Precondiciones:
 EL USUARIO DEBE TENER UN USUARIO CARGADO.
@@ -31,9 +32,9 @@ EL USUARIO DEBE TENER UN USUARIO CARGADO.
 ## Flujos Alternativos
 
 ### FA1
-si el sistema detecta que no esta el requisito mínimo del paso 2, muestra un cartel de advertencia al usuario.
+si el sistema detecta que no esta el requisito mínimo: busqueda del articulo, con la opcion de titulo o palabra clave, que indica el paso 2, muestra un cartel de advertencia al usuario.
 ### FA2
-
+si el sistema no encuentra el articulo, muestra un mensaje de "no encontrado".
 ## Postcondiciones
 el articulo solicitado queda guardado en el historial del usuario. De esta manera lo tendrá disponible cuando se loguee nuevamente.
 
