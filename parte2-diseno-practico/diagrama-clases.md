@@ -4,61 +4,41 @@ el diagrama de clases, permite ver la estructura logica del sistema. Muestra los
 
 DIAGRAMA HECHO  EN PLANTUML, se adjunta el codigo, para ser visualizado.
 
-
 @startuml
-' Configuraciones visuales
 skinparam classAttributeIconSize 0
-skinparam linetype ortho
 
 class Usuario {
-    + idUsuario : int
-    + nombreUsuario : String
-    + email : String
-    + contrasena : String
-    + registrar() : void
-    + iniciarSesion() : void
-    + decidirNuevaBusqueda() : boolean
+    - idUsuario: Integer
+    - nombre: String
+    - email: String
+    + registrarse(): void
+    + iniciarSesion(): boolean
+}
+
+class HistorialBusqueda {
+    - idHistorial: Integer
+    - terminoBusqueda: String
+    - fechaBusqueda: Date
+    + guardarBusqueda(): void
 }
 
 class Articulo {
-    + idArticulo : int
-    + titulo : String
-    + contenido : String
-    + palabrasClave : String
-    + fechaPublicacion : Date
-    + obtenerDetalles() : String
+    - idArticulo: Integer
+    - titulo: String
+    - contenido: String
+    - fechaPublicacion: Date
+    + obtenerDetalles(): String
 }
 
-class Historial {
-    + idHistorial : int
-    + fechaConsulta : Date
-    + registrarBusqueda(articulo: Articulo) : void
-    + obtenerHistorial() : List<Articulo>
+class Buscador {
+    - termino: String
+    + buscarPorTitulo(titulo: String): List<Articulo>
+    + buscarPorPalabraClave(palabra: String): List<Articulo>
 }
 
-class GestorBusqueda {
-    + validarRequisitos(termino: String) : boolean
-    + buscarArticulo(termino: String) : List<Articulo>
-    + mostrarAlerta(mensaje: String) : void
-    + solicitarContinuidad() : boolean
-}
-
-class BaseDeDatos {
-    + ejecutarConsulta(query: String) : List<Object>
-    + guardarRegistro(dato: Object) : void
-}
-
-' Relaciones estructurales
-Usuario "1" --> "1" GestorBusqueda : interactúa >
-Usuario "1" *-- "1" Historial : compone >
-Historial "*" o-- "1" Articulo : referencia >
-GestorBusqueda "1" --> "1" BaseDeDatos : consulta >
-BaseDeDatos "1" --> "*" Articulo : almacena >
+Usuario "1" --> "0..*" HistorialBusqueda : genera >
+HistorialBusqueda "1" --> "1" Articulo : referencia >
+Buscador ..> Articulo : busca >
+Usuario ..> Buscador : utiliza >
 
 @enduml
-
-
-
-
-
-
