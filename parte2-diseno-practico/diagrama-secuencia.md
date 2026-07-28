@@ -5,46 +5,39 @@ Diagrama de secuencia, nos muestra la pelicula del caso de uso. Como y en que or
 Se adjunto codigo de diagrama, hecho en PLANTUML, para ser visualizado.
 
 @startuml
-' Configuraciones visuales (opcional, para que se vea más profesional)
-skinparam style strictuml
-skinparam SequenceMessageAlignment center
-
 autonumber
-actor Usuario
-participant Sistema
-database BaseDeDatos
+skinparam BoxPadding 10
+skinparam ParticipantPadding 10
 
-Usuario -> Sistema: Registra / Inicia sesión (Paso 1)
-activate Sistema
+actor "Visitante / Usuario" as Usuario
+participant ":Sistema" as Sistema
+database "Base de Datos" as DB
 
-loop Búsqueda de artículos
-
-    Usuario -> Sistema: Inicia búsqueda por título/palabra clave (Paso 2)
+== Registro e Inicio de Búsqueda ==
+Usuario -> Sistema: Ingresa al sistema / Se registra
+loop Búsqueda de Artículos
+    Usuario -> Sistema: Solicita búsqueda (título o palabra clave)
     
-    alt Requisito mínimo NO cumplido (FA1)
-        Sistema --> Usuario: Muestra cartel de advertencia
-    else Requisito cumplido
-        Sistema -> BaseDeDatos: Consulta artículo (Paso 3)
-        activate BaseDeDatos
+    alt FA1: Falta criterio de búsqueda
+        Sistema --> Usuario: Muestra cartel de advertencia (Requisito mínimo faltante)
+    else Búsqueda Válida
+        Sistema -> DB: Consulta artículos (por título o palabra clave)
+        DB --> Sistema: Retorna resultados
         
-        alt Artículo encontrado
-            BaseDeDatos --> Sistema: Retorna artículo
-            Sistema --> Usuario: Mensaje "Encontrado" y muestra artículo (Paso 4)
-            Sistema -> BaseDeDatos: Guarda en historial del usuario (Postcondición)
-        else Artículo no encontrado
-            BaseDeDatos --> Sistema: Retorna vacío
-            Sistema --> Usuario: Mensaje "No encontrado" (Paso 5)
+        alt Artículo Encontrado
+            Sistema --> Usuario: Mensaje "Encontrado" + Muestra el Artículo
+            Sistema -> DB: Guarda el artículo en el historial del usuario
+        else FA2: Artículo No Encontrado
+            Sistema --> Usuario: Mensaje "No encontrado"
         end
-        deactivate BaseDeDatos
     end
     
-    Sistema -> Usuario: ¿Necesita buscar otro artículo? (Paso 6)
-    Usuario --> Sistema: Responde Sí/No
+    Sistema --> Usuario: ¿Necesita otro artículo? (Sí / No)
 end
 
-Usuario -> Sistema: Indica no tener más búsquedas
-Sistema --> Usuario: Vuelve a pantalla de inicio (Paso 7)
-deactivate Sistema
-
-note right of Usuario: Fin del caso de uso (Paso 8)
+== Fin del Caso de Uso ==
+Usuario -> Sistema: Finaliza uso
 @enduml
+        
+    
+  
